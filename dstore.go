@@ -52,6 +52,9 @@ type FindableEnt struct {
 	ident string
 }
 
+func (se *FindableEnt) String() (string) {
+	return se.ident
+}
 func (se *FindableEnt) FindBy(idValue string) (string, error) {
 	if se == nil {
 		return "", errors.New("FindableEnt is nul - property was not set when creating instance")

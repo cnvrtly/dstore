@@ -3,8 +3,9 @@ package gae
 import (
 	"context"
 	"google.golang.org/appengine/datastore"
-	"errors"
 	"github.com/cnvrtly/dstore"
+	"fmt"
+	"encoding/json"
 )
 
 type DatastoreStoreService struct {
@@ -26,14 +27,16 @@ func (dsSer *DatastoreStoreService) CreateKeyOptions(ctx context.Context, namesp
 }
 
 func (dsSer *DatastoreStoreService) Save(keyOptions dstore.KeyOptions, saveValueFromPointer interface{}, options interface{}) (interface{}, error) {
-	//fmt.Println("DS save")
-	key, err := keyOptions.GenerateKey()
 
+	key, err := keyOptions.GenerateKey()
 	if err != nil {
 		return nil, err
 	}
+
 	retKey, err := datastore.Put(keyOptions.Ctx(nil), key.(*datastore.Key), saveValueFromPointer)
 	if err != nil {
+		strVal,_:=json.Marshal(saveValueFromPointer)
+		fmt.Printf("DS save err =%s ptr=%s\n",err, string(strVal))
 		return nil, err
 	}
 	keyOptions.NumberId(retKey.IntID())
@@ -47,7 +50,11 @@ func (dsSer *DatastoreStoreService) Save(keyOptions dstore.KeyOptions, saveValue
 }
 
 func (dsSer *DatastoreStoreService) Delete(keyOptions dstore.KeyOptions) (error) {
-	return errors.New("DatastoreStoreService.Delete not yet implemented")
+	key, err := keyOptions.GenerateKey()
+	if err != nil {
+		return err
+	}
+	return datastore.Delete(keyOptions.Ctx(nil), key.(*datastore.Key))
 }
 
 func (dsSer *DatastoreStoreService) Load(keyOptions dstore.KeyOptions, setValueOnPointer interface{}) (interface{}, error) {
