@@ -75,21 +75,11 @@ func (memSer *MockDatastoreStoreService) Load(keyOptions dstore.KeyOptions, setV
 
 	return res, nil
 }
-/*
 
-func (memSer *MockDatastoreStoreService) setId(idVal int64, setValueOnPointer interface{}) (interface{}, error) {
+func (memSer *MockDatastoreStoreService) GetAll(ctx context.Context, namespaceId string, entityId string, fillSlice interface{}, queryModifiers func(interface{})( interface{})) (interface{}, error) {
+	return nil, dstore.ErrorNotImplemented
+}
 
-	setValueOnPointer.MockId=idVal
-	*/
-/*elem := reflect.TypeOf(setValueOnPointer).Elem()
-	fieldLen:=elem.NumField()
-	for i:=0 ; i<fieldLen; i++{
-		field:=elem.FieldByIndex([]int{i})
-		if tag := string(field.Tag); tag!= "" {
-
-		}
-	}*//*
-
-
-
-}*/
+func (memSer *MockDatastoreStoreService) QueryResults(ctx context.Context, namespaceId string, entityId string, queryModifiers func(interface{})( interface{})) (interface{}, error) {
+	return nil, dstore.ErrorNotImplemented
+}

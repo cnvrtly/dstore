@@ -54,3 +54,11 @@ func (memSer *MockMemcacheStoreService) Load(keyOptions dstore.KeyOptions, setVa
 	}
 	return res, nil
 }
+
+func (memSer *MockMemcacheStoreService) GetAll(ctx context.Context, namespaceId string, entityId string, fillSlice interface{}, queryModifiers func(interface{})( interface{})) (interface{}, error) {
+	return nil, dstore.ErrorNotImplemented
+}
+
+func (memSer *MockMemcacheStoreService) QueryResults(ctx context.Context, namespaceId string, entityId string, queryModifiers func(interface{})( interface{})) (interface{}, error) {
+	return nil, dstore.ErrorNotImplemented
+}

@@ -14,6 +14,7 @@ type ctxNamespaceIdType string
 
 var ErrorNotFound error = errors.New("store:not-found-error")
 var ErrorKeyTooLong error = errors.New("store:key-too-long")
+var ErrorNotImplemented error = errors.New("store:method-not-implemented")
 
 func NamespaceIdFromContext(ctx context.Context) (string, error) {
 	if nsId := ctx.Value(CtxKeyNamespaceId); nsId != nil && nsId.(string) != "" {
@@ -41,6 +42,8 @@ type SaverRetriever interface {
 	Save(keyOptions KeyOptions, value interface{}, options interface{}) (interface{}, error)
 	Load(keyOptions KeyOptions, setValueOnPointer interface{}) (interface{}, error)
 	Delete(keyOptions KeyOptions) (error)
+	GetAll(ctx context.Context, namespaceId string, entityId string, fillSlice interface{}, queryModifiers func(interface{})(interface{}) ) (interface{}, error)
+	QueryResults(ctx context.Context, namespaceId string, entityId string, queryModifiers func(interface{})(interface{}) ) (interface{}, error)
 	CreateKeyOptions(ctx context.Context, namespaceId string, entityId string, stringId string, numberId int64) (KeyOptions, error)
 }
 

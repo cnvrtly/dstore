@@ -81,3 +81,11 @@ func (memSer *MemcacheStoreService) Load(keyOptions dstore.KeyOptions, setValueO
 	}
 	return res, nil
 }
+
+func (memSer *MemcacheStoreService) GetAll(ctx context.Context, namespaceId string, entityId string, fillSlice interface{}, queryModifiers func(interface{})( interface{})) (interface{}, error) {
+	return nil, dstore.ErrorNotImplemented
+}
+
+func (memSer *MemcacheStoreService) QueryResults(ctx context.Context, namespaceId string, entityId string, queryModifiers func(interface{})( interface{})) (interface{}, error) {
+	return nil, dstore.ErrorNotImplemented
+}
