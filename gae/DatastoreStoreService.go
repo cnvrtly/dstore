@@ -7,6 +7,7 @@ import (
 	"fmt"
 	"encoding/json"
 	"google.golang.org/appengine"
+	"reflect"
 )
 
 type DatastoreStoreService struct {
@@ -92,16 +93,32 @@ func (dsSer *DatastoreStoreService) GetAll(ctx context.Context, namespaceId stri
 	}
 
 	if fillSlice != nil && len(keys) > 0 {
-		fs, isSl:=fillSlice.([]interface{})
-		fmt.Printf("OOttOOOO t=%T",fillSlice)
-		if  isSl{
-		for i, itm := range fs {
-			if fndbl,ok := itm.(dstore.Findable); ok {
-				fndbl.FindBy(keys[i].StringID())
-			}else {
-				break
+
+		switch reflect.TypeOf(fillSlice).Kind() {
+		case reflect.Ptr:
+			// fillSlice is pointer to slice of pointers
+			val := reflect.ValueOf(fillSlice)
+			// get slice pointer
+			ptrSlice := val.Elem().Interface()
+
+			switch reflect.TypeOf(ptrSlice).Kind() {
+			case reflect.Slice:
+				// get the slice
+				s := reflect.ValueOf(ptrSlice)
+				for i := 0; i < s.Len(); i++ {
+					// if element is Findable set FindBy / ident value
+					if currFindable, ok := s.Index(i).Interface().(dstore.Findable); ok {
+						currFindable.FindBy(keys[i].StringID())
+					}
+					/*this is same but with member reflection
+					findable := s.Index(i).Elem().FieldByName("FindableEnt")
+					if findable.Kind() != reflect.Invalid && findable.MethodByName("FindBy").Kind()==reflect.Func{
+						//type has "FindBy" / implements findable interface
+						ident := keys[i].StringID()
+						findable.MethodByName("FindBy").Call([]reflect.Value{reflect.ValueOf(ident)})
+					}*/
+				}
 			}
-		}
 		}
 	}
 	return keys, nil
