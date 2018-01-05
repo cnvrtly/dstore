@@ -80,6 +80,6 @@ func (memSer *MockDatastoreStoreService) GetAll(ctx context.Context, namespaceId
 	return nil, dstore.ErrorNotImplemented
 }
 
-func (memSer *MockDatastoreStoreService) QueryResults(ctx context.Context, namespaceId string, entityId string, queryModifiers func(interface{})( interface{})) (interface{}, error) {
+func (memSer *MockDatastoreStoreService) QueryIterator(ctx context.Context, namespaceId string, entityId string, queryModifiers func(interface{})( interface{})) (interface{}, error) {
 	return nil, dstore.ErrorNotImplemented
 }

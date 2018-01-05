@@ -124,7 +124,7 @@ func (dsSer *DatastoreStoreService) GetAll(ctx context.Context, namespaceId stri
 	return keys, nil
 }
 
-func (dsSer *DatastoreStoreService) QueryResults(ctx context.Context, namespaceId string, entityId string, queryModifiers func(interface{}) (interface{})) (interface{}, error) {
+func (dsSer *DatastoreStoreService) QueryIterator(ctx context.Context, namespaceId string, entityId string, queryModifiers func(interface{}) (interface{})) (interface{}, error) {
 	q, ctx, err := createDatastoreQuery(ctx, namespaceId, entityId, queryModifiers)
 	if err != nil {
 		return nil, err

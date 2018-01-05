@@ -59,6 +59,6 @@ func (memSer *MockMemcacheStoreService) GetAll(ctx context.Context, namespaceId 
 	return nil, dstore.ErrorNotImplemented
 }
 
-func (memSer *MockMemcacheStoreService) QueryResults(ctx context.Context, namespaceId string, entityId string, queryModifiers func(interface{})( interface{})) (interface{}, error) {
+func (memSer *MockMemcacheStoreService) QueryIterator(ctx context.Context, namespaceId string, entityId string, queryModifiers func(interface{})( interface{})) (interface{}, error) {
 	return nil, dstore.ErrorNotImplemented
 }

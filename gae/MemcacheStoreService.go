@@ -86,6 +86,6 @@ func (memSer *MemcacheStoreService) GetAll(ctx context.Context, namespaceId stri
 	return nil, dstore.ErrorNotImplemented
 }
 
-func (memSer *MemcacheStoreService) QueryResults(ctx context.Context, namespaceId string, entityId string, queryModifiers func(interface{})( interface{})) (interface{}, error) {
+func (memSer *MemcacheStoreService) QueryIterator(ctx context.Context, namespaceId string, entityId string, queryModifiers func(interface{})( interface{})) (interface{}, error) {
 	return nil, dstore.ErrorNotImplemented
 }

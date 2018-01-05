@@ -43,7 +43,7 @@ type SaverRetriever interface {
 	Load(keyOptions KeyOptions, setValueOnPointer interface{}) (interface{}, error)
 	Delete(keyOptions KeyOptions) (error)
 	GetAll(ctx context.Context, namespaceId string, entityId string, fillSlice interface{}, queryModifiers func(interface{})(interface{}) ) (interface{}, error)
-	QueryResults(ctx context.Context, namespaceId string, entityId string, queryModifiers func(interface{})(interface{}) ) (interface{}, error)
+	QueryIterator(ctx context.Context, namespaceId string, entityId string, queryModifiers func(interface{})(interface{}) ) (interface{}, error)
 	CreateKeyOptions(ctx context.Context, namespaceId string, entityId string, stringId string, numberId int64) (KeyOptions, error)
 }
 
